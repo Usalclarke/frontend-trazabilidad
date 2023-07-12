@@ -25,9 +25,9 @@ const ProductoProvider = ({ children }) => {
             return false
         }
     }
-    const editarProducto = async(data) => {
+    const editarProducto = async(productoForm) => {
         try {
-            await clienteAxios.post('/productos/', data)
+            await clienteAxios.post('/productos/', productoForm)
             obtenerProductos()
             return true
         } catch (error) {

@@ -4,7 +4,7 @@ import usePedido from "../../hooks/usePedido"
 import useAlerta from "../../hooks/useAlerta"
 import useObservacion from "../../hooks/useObservacion"
 import Formulario from "./Formulario";
-
+import _get from "lodash/get";
 
 const AgregarObservacion = () => {
     const navigate = useNavigate()
@@ -27,23 +27,32 @@ const AgregarObservacion = () => {
 
         const pedido = pedidos.find(value => value.codPedido === form.codPedido)
 
-        if (pedido) {
-            setPedido(pedido)
-        } else {
+        if (!pedido) {
             mostrarAlerta('El Pedido no existe o es invalido', 'alerta-error')
             return
         }
-    }
 
-    const onSubmit = (data, pedido) => {
+        if (!_get(pedido, 'fechaTerminado')) {
+            mostrarAlerta('El Pedido no esta terminado', 'alerta-error')
+            return
+        }
 
-        const result = agregarObservacion(data, pedido);
-        result ? mostrarAlerta('Observacion creada correctamente', 'alerta-ok') : mostrarAlerta('Observacion no se creo correctamente', 'alerta-error')
-        navigate('/dashboard/observaciones')
+        setPedido(pedido)
+        return
 
     }
 
     const [pedido, setPedido] = useState(false)
+
+
+    const onSubmit = async (data, pedido) => {
+
+        const result = await agregarObservacion(data, pedido);
+        result ? mostrarAlerta('Observacion creada correctamente', 'alerta-ok') : mostrarAlerta('Ocurrio un error', 'alerta-error')
+        navigate('/dashboard/observaciones')
+
+    }
+
 
     return (
         <>
@@ -73,7 +82,7 @@ const AgregarObservacion = () => {
                     </form>
                 </div>
             </div>
-            {pedido ?<Formulario pedido={pedido} onSubmit={onSubmit} /> : null }
+            {pedido ? <Formulario pedido={pedido} onSubmit={onSubmit} /> : null}
         </>
     )
 }

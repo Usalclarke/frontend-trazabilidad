@@ -24,6 +24,7 @@ const EditarUsuario = () => {
 
     return (
         <Formulario tipo="editar" usuario={location.state} onSubmit={onSubmit} />
+        
     )
 
 }

@@ -41,6 +41,7 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
             return
         }
 
+        //LLAMA AL ON SUBMIT QUE RECIBO POR PARAMETRO
         onSubmit(form, pedido);
     };
     return (
@@ -67,12 +68,14 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
                                 onChange={onChange}
                                 required
                             >
-                                <option value="">--Selecciona--</option>
+                                <option value="">--Selecciona un producto--</option>
                                 {
+                                    //ITERAMOS LOS ITEMS DEL PEDIDO PARA MOSTRAR EL COD DE PRODUCTO
                                     pedido.pedidoDetalleList && pedido.pedidoDetalleList.map(producto => (
                                         <option
                                             key={producto.idproducto.idproducto}
-                                            value={Number(producto.idproducto.idproducto)}>
+                                            value={Number(producto.idproducto.idproducto)}
+                                        >
                                             {producto.idproducto.codProducto}
                                         </option>
                                     ))
@@ -86,7 +89,7 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
                                 onChange={onChange}
                                 required
                             >
-                                <option value="">--Selecciona--</option>
+                                <option value="">--Selecciona un motivo--</option>
                                 <option value="fisura">Fisura</option>
                                 <option value="desgranado">Desgranado</option>
                                 <option value="descolorado">Descolorado</option>

@@ -54,9 +54,7 @@ const EditarPedido = () => {
                             name="codPedido"
                             id="codPedido"
                             value={pedidoForm.codPedido}
-                            onChange={onChange}
-                            required
-                            maxLength="45"
+                            disabled
                         />
                     </div>
                     <div className="campo-form">
@@ -71,18 +69,7 @@ const EditarPedido = () => {
                             maxLength="45"
                         />
                     </div>
-                    <div className="campo-form">
-                        <label htmlFor="descripcion">Descripcion</label>
-                        <input
-                            type="text"
-                            name="descripcion"
-                            id="descripcion"
-                            value={pedidoForm.descripcion}
-                            onChange={onChange}
-                            required
-                            maxLength="45"
-                        />
-                    </div>
+                    
                     <div className="campo-form">
                         <label htmlFor="cantidad">Fecha Emision</label>
                         <input

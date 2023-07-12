@@ -54,7 +54,6 @@ const Sidebar = () => {
                                 </Link>
                             </li>
                             
-
                         </Nav>
                     </PerfectScrollbar>
                 </div>

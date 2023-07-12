@@ -9,6 +9,7 @@ const UsuarioProvider = ({ children }) => {
 
     const { usuario } = useAuth()
     const [usuarios, setUsuarios] = useState([]);
+    const [form, setForm] = useState({});
 
     useEffect(() => {
         console.log('requesting users data....')
@@ -61,7 +62,9 @@ const UsuarioProvider = ({ children }) => {
                 setUsuarios,
                 agregarUsuario,
                 editarUsuario,
-                eliminarUsuario
+                eliminarUsuario,
+                form,
+                setForm
             }}
         >
             {children}

@@ -48,9 +48,7 @@ const EditarStock = () => {
                             name="codProducto"
                             id="codProducto"
                             value={productoForm.codProducto}
-                            onChange={onChange}
-                            required
-                            maxLength="45"
+                            disabled
                         />
                     </div>
                     <div className="campo-form">
@@ -60,9 +58,7 @@ const EditarStock = () => {
                             name="descripcion"
                             id="descripcion"
                             value={productoForm.descripcion}
-                            onChange={onChange}
-                            required
-                            maxLength="45"
+                            disabled
                         />
                     </div>
                     <div className="campo-form">

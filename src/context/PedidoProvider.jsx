@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
+import useProducto from '../hooks/useProducto';
 import clienteAxios from '../config/axios';
 
 const PedidoContext = createContext()
@@ -7,14 +8,14 @@ const PedidoContext = createContext()
 // eslint-disable-next-line react/prop-types
 const PedidoProvider = ({ children }) => {
     const { usuario } = useAuth()
-    const [pedidos, setPedidos] = useState({})
+    const { productos } = useProducto()
+    const [pedidos, setPedidos] = useState([])
     const [cargando, setCargando] = useState(false)
-
     //OBTENEMOS PEDIDOS CON USEEFECT AUTOMATICAMENTE DESPUES DE INICIAR SESION.
     useEffect(() => {
         console.log('requesting pedidos data....')
         obtenerPedidos()
-    }, [usuario])
+    }, [usuario, productos])
 
     //LLAMAMOS A OBTENER PEDIDO DEL BACKEND MEDIANTE SU URL. 
     const obtenerPedidos = async () => {
@@ -44,6 +45,9 @@ const PedidoProvider = ({ children }) => {
                     COD001, JORGE, BORDE, 1U.
             )
         */
+
+        let result = 0
+
         for (const key in pedidos) {
             try {
                 const pedido = pedidos[key]
@@ -51,31 +55,31 @@ const PedidoProvider = ({ children }) => {
                 const response = await clienteAxios.post('/pedidos/', pedido[0])
                 //OBTENER NUEVO PEDIDO CREADO
                 const pedidoNuevo = response.data
-                //OBTENER PRODUCTOS
-                const productos = await clienteAxios.get('productos/');
 
                 //OBTENER DETALLE DEL PEDIDO. DETALLE ES UN ARRAY DECLARADO EN EL DTO DE PEDIDO.
                 const detalle = pedido.map(linea => {
-                    const producto = productos.data.find(producto => producto.codProducto === linea.codProducto)
                     return {
                         idpedido: pedidoNuevo.idpedido,
-                        idproducto: producto ? producto.idproducto : null,
+                        codProducto: linea.codProducto,
                         cantidad: linea.cantidad,
                         unidades: linea.unidades
                     }
                 })
+
                 //CREAR DETALLE DEL PEDIDO
                 await clienteAxios.post('pedidoDetalle/all', detalle)
 
-
+                result++
             } catch (error) {
                 console.log(error.message)
-                return false
             }
         }
+
         await obtenerPedidos()
+
         setCargando(false)
-        return true
+
+        return result
 
     }
 
@@ -104,7 +108,7 @@ const PedidoProvider = ({ children }) => {
     //CAMBIAMOS NOMBRES DE VARIABLES RECIBIDAS DEL BACKEND A UN FORMATO MAS LINDO PARA EL FRONTEND
     const columns = {
         'Codigo pedido': 'codPedido',
-        'Descripcion': 'descripcion',
+        //'Descripcion': 'descripcion',
         'Cliente': 'cliente',
         'Fecha Emision': 'fechaEmision',
         'Fecha Produccion': 'fechaProduccion',

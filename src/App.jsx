@@ -31,8 +31,8 @@ function App() {
       <AuthProvider>
         <AlertaProvider>
           <UsuarioProvider>
-            <PedidoProvider>
               <ProductoProvider>
+            <PedidoProvider>
                 <ObservacionProvider>
 
                 <Routes>
@@ -67,8 +67,8 @@ function App() {
                   </Route>
                 </Routes>
                 </ObservacionProvider>
-              </ProductoProvider>
             </PedidoProvider>
+              </ProductoProvider>
           </UsuarioProvider>
         </AlertaProvider>
       </AuthProvider>

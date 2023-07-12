@@ -23,12 +23,19 @@ const Dashboard = () => {
                         data-header-position="fixed"
                         data-boxed-layout="full"
                     >
+                        
                         <Sidebar />
+
                         <div className="seccion-principal">
+                        
                             <Barra />
+                        
                             <div className="page-wrapper d-block">
+                        
                                 <Outlet />
+                        
                             </div>
+                        
                         </div>
                     </div>
                 ) : <Navigate to="/" />
