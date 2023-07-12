@@ -10,11 +10,12 @@ const AgregarUsuario = () => {
     const { agregarUsuario } = useUsuario()
     const { mostrarAlerta } = useAlerta()
 
-    const onSubmit = (data) => {
+
+    const onSubmit = async (data) => {
 
         console.log("creando...", data)
 
-        const result = agregarUsuario(data);
+        const result = await agregarUsuario(data);
 
         result ? mostrarAlerta('Usuario creado correctamente', 'alerta-ok') : mostrarAlerta('Usuario no se creo correctamente', 'alerta-error')
 

@@ -5,7 +5,6 @@ import useAlerta from '../../hooks/useAlerta';
 const Formulario = ({ tipo, usuario, onSubmit }) => {
 
     const { mostrarAlerta } = useAlerta()
-
     const campos = usuario ? usuario :
         {
             nombre: '',
@@ -26,7 +25,7 @@ const Formulario = ({ tipo, usuario, onSubmit }) => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isNaN(usuarioForm.nombre) || !isNaN(usuarioForm.apellido)) {
@@ -55,9 +54,10 @@ const Formulario = ({ tipo, usuario, onSubmit }) => {
             mostrarAlerta('El campo dni debe tener 8 digitos', 'alerta-error');
             return;
         }
-        console.log(usuarioForm)
 
-        onSubmit(usuarioForm);
+
+
+        await onSubmit(usuarioForm);
         // {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
     };
 

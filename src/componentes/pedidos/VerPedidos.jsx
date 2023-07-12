@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import useAlerta from "../../hooks/useAlerta"
 import usePedido from "../../hooks/usePedido"
 import { TablaDetalle } from "../../utils/TablaDetalle"
@@ -7,7 +7,7 @@ import { TablaDetalle } from "../../utils/TablaDetalle"
 const VerPedidos = () => {
 
     //METODO PARA REDIRECCIONAR
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const { pedidos, columns, eliminarPedido } = usePedido()
     const { mostrarAlerta } = useAlerta()
 
