@@ -11,11 +11,11 @@ const EditarUsuario = () => {
     const { editarUsuario } = useUsuario()
     const { mostrarAlerta } = useAlerta()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
 
         console.log("editando...", data)
 
-        const result = editarUsuario(data);
+        const result = await editarUsuario(data);
 
         result ? mostrarAlerta('Usuario editado correctamente', 'alerta-ok') : mostrarAlerta('Ocurrio un error', 'alerta-error')
 
