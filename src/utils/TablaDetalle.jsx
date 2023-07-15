@@ -12,7 +12,7 @@ function Row({ row, columns, handleEdit, handleDelete, handleState }) {
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 {(Object.values(columns)).map((field, index) => (
                     <TableCell
-                        key={field}
+                        key={index}
                         sx={{ fontSize: '16px' }}
                         align={index === 0 ? "left" : "right"}
                         component={index === 0 ? "th" : ""}
@@ -108,14 +108,14 @@ const TablaDetalle = ({ columns, data, handleEdit, handleDelete }) => {
                     <TableHead>
                         <TableRow >
                             {(Object.keys(columns)).map((column, index) => (
-                                <TableCell key={column} sx={{ fontSize: '16px' }} align={index === 0 ? "" : "right"}>{column}</TableCell>
+                                <TableCell key={index} sx={{ fontSize: '16px' }} align={index === 0 ? "left" : "right"}>{column}</TableCell>
                             ))}
                             <TableCell sx={{ fontSize: '16px' }} align="right">Accion</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row) => (
-                            <Row key={row.name} row={row} columns={columns} handleEdit={handleEdit} handleDelete={handleOpen} />
+                        {data.map((row,index) => (
+                            <Row key={index} row={row} columns={columns} handleEdit={handleEdit} handleDelete={handleOpen} />
                         ))}
                     </TableBody>
                 </Table>
@@ -170,14 +170,14 @@ const TablaEstado = ({ columns, data, handleState }) => {
                     <TableHead>
                         <TableRow >
                             {(Object.keys(columns)).map((column, index) => (
-                                <TableCell key={column} sx={{ fontSize: '16px' }} align={index === 0 ? "" : "right"}>{column}</TableCell>
+                                <TableCell key={index} sx={{ fontSize: '16px' }} align={index === 0 ? "left" : "right"}>{column}</TableCell>
                             ))}
                             <TableCell sx={{ fontSize: '16px' }} align="right">Accion</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row) => (
-                            <Row key={row.name} row={row} columns={columns} handleState={handleOpen} />
+                        {data.map((row, index) => (
+                            <Row key={index} row={row} columns={columns} handleState={handleOpen} />
                         ))}
                     </TableBody>
                 </Table>
@@ -187,7 +187,7 @@ const TablaEstado = ({ columns, data, handleState }) => {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                fullWidth={'sm'} 
+                fullWidth={true} 
                 maxWidth={'sm'}
             >
                 <DialogContent>

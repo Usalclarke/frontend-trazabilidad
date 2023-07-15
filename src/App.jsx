@@ -23,6 +23,9 @@ import { PedidoProvider } from './context/PedidoProvider'
 import { ObservacionProvider } from './context/ObservacionProvider'
 import EditarPedido from './componentes/pedidos/EditarPedido'
 import EditarObservacion from './componentes/observaciones/EditarObservacion'
+import GestionEstadistica from './componentes/estadistica/GestionEstadistica'
+import EficienciaProducto from './componentes/estadistica/EficienciaProducto'
+import EficienciaGalpones from './componentes/estadistica/EficienciaGalpones'
 
 function App() {
 
@@ -62,6 +65,11 @@ function App() {
                     <Route path="/dashboard/stock" element={<GestionStock />} >
                       <Route path="/dashboard/stock/ver" element={<VerStock />} />
                       <Route path="/dashboard/stock/editar" element={<EditarStock />} />
+                    </Route>
+
+                    <Route path="/dashboard/estadistica" element={<GestionEstadistica/>} >
+                      <Route path="/dashboard/estadistica/producto" element={<EficienciaProducto />} />
+                      <Route path="/dashboard/estadistica/galpones" element={<EficienciaGalpones />} />
                     </Route>
 
                   </Route>

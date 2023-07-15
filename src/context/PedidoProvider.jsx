@@ -8,7 +8,7 @@ const PedidoContext = createContext()
 // eslint-disable-next-line react/prop-types
 const PedidoProvider = ({ children }) => {
     const { usuario } = useAuth()
-    const { productos } = useProducto()
+    const { productos, obtenerProductos } = useProducto()
     const [pedidos, setPedidos] = useState([])
     const [cargando, setCargando] = useState(false)
     //OBTENEMOS PEDIDOS CON USEEFECT AUTOMATICAMENTE DESPUES DE INICIAR SESION.
@@ -94,6 +94,16 @@ const PedidoProvider = ({ children }) => {
         }
     }
 
+    const editarPedidoTerminado = async (pedido) => {
+        try {
+            await clienteAxios.post('/pedidos/terminado', pedido)
+            await obtenerPedidos()
+            await obtenerProductos()
+            return true
+        } catch (error) {
+            return false
+        }
+    }
     //LLAMAMOS A ELIMINAR PEDIDO DEL BACKEND MEDIANTE SU URL.
     const eliminarPedido = async (pedido) => {
         try {
@@ -108,7 +118,6 @@ const PedidoProvider = ({ children }) => {
     //CAMBIAMOS NOMBRES DE VARIABLES RECIBIDAS DEL BACKEND A UN FORMATO MAS LINDO PARA EL FRONTEND
     const columns = {
         'Codigo pedido': 'codPedido',
-        //'Descripcion': 'descripcion',
         'Cliente': 'cliente',
         'Fecha Emision': 'fechaEmision',
         'Fecha Produccion': 'fechaProduccion',
@@ -128,7 +137,7 @@ const PedidoProvider = ({ children }) => {
                 cargarPedidos,
                 editarPedido,
                 eliminarPedido,
-
+                editarPedidoTerminado
             }}
         >
             {children}

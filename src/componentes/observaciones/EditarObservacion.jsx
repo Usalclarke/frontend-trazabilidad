@@ -11,9 +11,11 @@ const EditarObservacion = () => {
     const { agregarObservacion } = useObservacion()
     const { mostrarAlerta } = useAlerta()
 
-    const onSubmit = (data, pedido) => {
+    const onSubmit = async (data, pedido) => {
 
-        const result = agregarObservacion(data, pedido);
+        console.log(data)
+        console.log(pedido)
+        const result = await agregarObservacion(data, pedido);
 
         result ? mostrarAlerta('Observacion editada correctamente', 'alerta-ok') : mostrarAlerta('Ocurrio un error', 'alerta-error')
 
@@ -22,7 +24,7 @@ const EditarObservacion = () => {
 
     return (
 
-        <Formulario tipo="editar" observacion={location.state.obs} pedido={location.state.pedido} onSubmit={onSubmit} />
+        <Formulario observacion={location.state.obs} pedido={location.state.pedido} onSubmit={onSubmit} />
 
     )
 

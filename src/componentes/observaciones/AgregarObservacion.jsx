@@ -38,6 +38,7 @@ const AgregarObservacion = () => {
         }
 
         setPedido(pedido)
+
         return
 
     }
@@ -48,8 +49,8 @@ const AgregarObservacion = () => {
     const onSubmit = async (data, pedido) => {
 
         const result = await agregarObservacion(data, pedido);
-        result ? mostrarAlerta('Observacion creada correctamente', 'alerta-ok') : mostrarAlerta('Ocurrio un error', 'alerta-error')
-        navigate('/dashboard/observaciones')
+        result ? mostrarAlerta('Observacion creada correctamente', 'alerta-ok') : mostrarAlerta('Cantidad de piezas no valido', 'alerta-error')
+        navigate('/dashboard/observaciones/ver')
 
     }
 
@@ -82,7 +83,7 @@ const AgregarObservacion = () => {
                     </form>
                 </div>
             </div>
-            {pedido ? <Formulario pedido={pedido} onSubmit={onSubmit} /> : null}
+            { pedido ? <Formulario pedido={pedido} onSubmit={onSubmit} /> : null}
         </>
     )
 }

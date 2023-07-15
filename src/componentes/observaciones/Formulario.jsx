@@ -10,7 +10,7 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
 
     const fields = observacion ? observacion :
         {
-            codObservacion: 'obs' + Math.floor((Math.random() * 10000) + 1),
+            codObservacion: 'OBS' + Math.floor((Math.random() * 10000) + 1),
             codPedido: '',
             motivo: '',
             cantidadPiezas: 0,
@@ -26,7 +26,7 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (form.cantidadPiezas === 0) {
@@ -42,7 +42,7 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
         }
 
         //LLAMA AL ON SUBMIT QUE RECIBO POR PARAMETRO
-        onSubmit(form, pedido);
+        await onSubmit(form, pedido);
     };
     return (
         <div className='flex justify-center items-center'>

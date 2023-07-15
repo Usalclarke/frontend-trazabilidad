@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import useAlerta from "../../hooks/useAlerta";
 import Papaparse from "papaparse"
 import usePedido from "../../hooks/usePedido";
-import useProducto from "../../hooks/useProducto";
 
 const CargarPedidos = () => {
 
@@ -10,7 +9,6 @@ const CargarPedidos = () => {
     //A AQUELLAS VARIABLES QUE VAMOS A UTILIZAR.
     const { mostrarAlerta } = useAlerta()
     const { cargarPedidos } = usePedido()
-    const { obtenerProductos } = useProducto()
     const navigate = useNavigate()
 
     //HANDLEFILE ES IGUAL QUE ONSUBMIT. ONSUBMIT PRESTA ATENCION A LOS CLICKS Y HANDLEFILE A LOS ARCHIVOS.
@@ -50,13 +48,12 @@ const CargarPedidos = () => {
                 (x[y.codPedido] = x[y.codPedido] || []).push(y);
                 return x;
             }, {});
-            console.log(pedidos)
+
+           
             //PASAMOS ARCHIVO JSON CON LOS PEDIDOS
             const result = await cargarPedidos(pedidos)
 
             mostrarAlerta(`${result } pedidos cargados correctamente`, 'alerta-ok')
-
-            if(result) obtenerProductos()
             
             return 
         };

@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
+
 import clienteAxios from '../config/axios';
 
 const ProductoContext = createContext()
@@ -8,10 +9,10 @@ const ProductoContext = createContext()
 const ProductoProvider = ({ children }) => {
 
     const { usuario } = useAuth()
+
     const [productos, setProductos] = useState([])
 
     useEffect(() => {
-
         console.log('requesting products data....')
         obtenerProductos()
     }, [usuario])
@@ -25,7 +26,7 @@ const ProductoProvider = ({ children }) => {
             return false
         }
     }
-    const editarProducto = async(productoForm) => {
+    const editarProducto = async (productoForm) => {
         try {
             await clienteAxios.post('/productos/', productoForm)
             obtenerProductos()
@@ -47,7 +48,8 @@ const ProductoProvider = ({ children }) => {
                 productos,
                 setProductos,
                 editarProducto,
-                columns
+                columns,
+                obtenerProductos
             }}
         >
             {children}

@@ -53,6 +53,16 @@ const Sidebar = () => {
                                     </button>
                                 </Link>
                             </li>
+                            <li className='sidebar-item'>
+                                <Link to="/dashboard/estadistica" className="sidebar-link">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primario btn-block btn-custom"
+                                    >
+                                        <span className="hide-menu">Estadistica</span>
+                                    </button>
+                                </Link>
+                            </li>
                             
                         </Nav>
                     </PerfectScrollbar>

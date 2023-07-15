@@ -14,8 +14,13 @@ const ObservacionProvider = ({ children }) => {
         try {
             data.idpedido = Number(pedido.idpedido)
             data.idproducto = Number(data.idproducto)
+            
             console.log(data)
+            
             await clienteAxios.post('/observaciones/', data)
+            
+            obtenerObservaciones()
+            
             return true
         } catch (error) {
             return false
@@ -38,6 +43,16 @@ const ObservacionProvider = ({ children }) => {
         }
     }
 
+    const eliminarObservacion = async(data) => {
+        try {
+            await clienteAxios.delete(`/observaciones/id/${data.idobservacion}`)
+            obtenerObservaciones()
+            return true
+        } catch (error) {
+            return false
+        }
+    }
+
     const columns = {
         Observacion: 'codObservacion',
         Motivo: 'motivo',
@@ -52,7 +67,8 @@ const ObservacionProvider = ({ children }) => {
                 columns,
                 observaciones,
                 setObservaciones,
-                agregarObservacion
+                agregarObservacion,
+                eliminarObservacion
             }}
         >
             {children}
