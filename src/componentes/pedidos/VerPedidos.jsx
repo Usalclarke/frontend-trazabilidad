@@ -25,8 +25,16 @@ const VerPedidos = () => {
         console.log('eliminado pedido...', row)
 
         const result = await eliminarPedido(row)
+        if (result.ok) {
+            mostrarAlerta('Pedido eliminado correctamente', 'alerta-ok')
+        } else {
+            if (result.message) {
+                mostrarAlerta(result.message, 'alerta-error')
+            } else {
+                mostrarAlerta('Ocurrio un error', 'alerta-error')
+            }
+        }
 
-        result ? mostrarAlerta('Pedido eliminado correctamente', 'alerta-ok') : mostrarAlerta('Ocurrio un error', 'alerta-error')
     }
 
     return (

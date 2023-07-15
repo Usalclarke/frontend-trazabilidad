@@ -14,13 +14,13 @@ const ObservacionProvider = ({ children }) => {
         try {
             data.idpedido = Number(pedido.idpedido)
             data.idproducto = Number(data.idproducto)
-            
+
             console.log(data)
-            
+
             await clienteAxios.post('/observaciones/', data)
-            
+
             obtenerObservaciones()
-            
+
             return true
         } catch (error) {
             return false
@@ -43,11 +43,22 @@ const ObservacionProvider = ({ children }) => {
         }
     }
 
-    const eliminarObservacion = async(data) => {
+    const eliminarObservacion = async (data) => {
         try {
             await clienteAxios.delete(`/observaciones/id/${data.idobservacion}`)
             obtenerObservaciones()
             return true
+        } catch (error) {
+            return false
+        }
+    }
+
+    const obtenerPorPedido = async (pedido) => {
+        try {
+            const { data } = await clienteAxios.delete(`/observaciones/getbypedido`, pedido)
+
+            return data
+
         } catch (error) {
             return false
         }
@@ -58,7 +69,7 @@ const ObservacionProvider = ({ children }) => {
         Motivo: 'motivo',
         Cantidad: 'cantidadPiezas',
         Pedido: 'codPedido',
-        Galpon: 'Galpon',
+        Galpon: 'galpon',
         Producto: 'codProducto'
     }
     return (
@@ -68,7 +79,8 @@ const ObservacionProvider = ({ children }) => {
                 observaciones,
                 setObservaciones,
                 agregarObservacion,
-                eliminarObservacion
+                eliminarObservacion,
+                obtenerPorPedido
             }}
         >
             {children}

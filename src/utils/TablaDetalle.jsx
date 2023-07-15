@@ -50,7 +50,7 @@ function Row({ row, columns, handleEdit, handleDelete, handleState }) {
                                         <TableCell sx={{ fontSize: '15px' }}>ID</TableCell>
                                         <TableCell sx={{ fontSize: '15px' }}>Producto</TableCell>
                                         <TableCell sx={{ fontSize: '15px' }} align="right">Descripcion</TableCell>
-                                        <TableCell sx={{ fontSize: '15px' }} align="right">Unidades</TableCell>
+                                        <TableCell sx={{ fontSize: '15px' }} align="right">Cantidad</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -61,7 +61,7 @@ function Row({ row, columns, handleEdit, handleDelete, handleState }) {
                                             </TableCell>
                                             <TableCell sx={{ fontSize: '15px' }} >{detalle.idproducto.codProducto}</TableCell>
                                             <TableCell sx={{ fontSize: '15px' }} align="right">{detalle.idproducto.descripcion}</TableCell>
-                                            <TableCell sx={{ fontSize: '15px' }} align="right">{detalle.unidades}</TableCell>
+                                            <TableCell sx={{ fontSize: '15px' }} align="right">{detalle.cantidad}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

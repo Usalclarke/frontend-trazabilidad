@@ -17,6 +17,7 @@ const EficienciaProducto = () => {
     })
 
     const [chartData, setChartData] = useState(false)
+    const [chartDataGalpon, setChartDataGalpon] = useState(false)
 
     const onChange = (e) => {
         setForm({
@@ -30,19 +31,26 @@ const EficienciaProducto = () => {
 
 
         try {
+            const { data } = await clienteAxios.get(`/estadistica/eficienciaProducto/${form.codProducto}/${form.galpon}`)
+            setChartData(
+                [{
+                    name: "Fabricadas",
+                    value: data.cantidadFabricados,
+                }, {
+                    name: "Observadas",
+                    value: data.cantidadObservados,
+                }]
+            );
+            setChartDataGalpon(
+                [{
+                    name: "Fabricadas",
+                    value: data.eficienciagalpon.cantidadFabricados,
+                }, {
+                    name: "Observadas",
+                    value: data.eficienciagalpon.cantidadObservados,
+                }]
+            );
 
-            const { data } = await clienteAxios.get(`/estadistica/eficienciaProducto/${form.codProducto}`)
-            
-            setChartData([
-                {
-                  name: 'Cantidad Fabricados',
-                  value: data.cantidadFabricados,
-                },
-                {
-                  name: 'Cantidad Observados',
-                  value: data.cantidadObservados,
-                },
-              ]);
 
         } catch (error) {
             mostrarAlerta("Producto no encontrado", "alerta-error")
@@ -67,15 +75,22 @@ const EficienciaProducto = () => {
                     />
                 </div>
                 <div className="campo-form1">
-                    <label htmlFor="galpon">Galpon</label>
-                    <input
-                        type="number"
+                    <label htmlFor="galpon">#N Galpon</label>
+                    <select
                         name="galpon"
-                        id="galpon"
                         value={form.galpon}
                         onChange={onChange}
                         required
-                    />
+                    >
+                        <option value="">--Selecciona--</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+
+                    </select>
                 </div>
                 <div className="campo-form1">
                     <input
@@ -86,30 +101,55 @@ const EficienciaProducto = () => {
                 </div>
             </form>
             {chartData ?
-                <div style={{ width: '100%', height: 500 }}>
-                    <ResponsiveContainer>
-                        <PieChart>
-                            <Pie
-                                dataKey="value"
-                                data={chartData}
-                                innerRadius={0}
-                                fill="#82ca9d"
-                                label
-                            >
-                                {chartData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Legend/>
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
-
-                </div> : null}
+                <>
+                    <h1 style={{paddingTop: "30px"}}>Eficiencia General</h1>
+                    <div style={{ width: '100%', height: 500}}>
+                        <ResponsiveContainer>
+                            <PieChart>
+                                <Pie
+                                    dataKey="value"
+                                    data={chartData}
+                                    innerRadius={0}
+                                    fill="#82ca9d"
+                                    label
+                                >
+                                    {chartData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Legend />
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
+                </>
+                : null}
+            {chartDataGalpon ?
+                <>
+                    <h1 style={{paddingTop: "30px"}}>Eficiencia por Galpon {form.galpon}</h1>
+                    <div style={{ width: '100%', height: 500 }}>
+                        <ResponsiveContainer>
+                            <PieChart>
+                                <Pie
+                                    dataKey="value"
+                                    data={chartDataGalpon}
+                                    innerRadius={0}
+                                    fill="#82ca9d"
+                                    label
+                                >
+                                    {chartDataGalpon.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Legend />
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div></>
+                : null}
         </div>
     )
 }
 
 const COLORS = ['#ce93d8', '#5c6bc0', '#b39ddb', '#4dd0e1', '#f48fb1', '#d500f9']
-
 export default EficienciaProducto

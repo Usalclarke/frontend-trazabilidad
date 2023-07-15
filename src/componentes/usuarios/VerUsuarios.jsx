@@ -20,8 +20,6 @@ const VerUsuarios = () => {
     const handleDelete = (row) => {
         console.log("delete...", row )
         //RECIBIMOS POR PARAMETRO EL USUARIO A ELIMINAR
-        //REDIRECCION AL COMPONENTE PARA EDITAR Y PASAMOS EL USUARIO
-        
         const result = eliminarUsuario(row);
     
         if (result) {

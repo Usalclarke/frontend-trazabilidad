@@ -28,6 +28,17 @@ const Formulario = ({ tipo, usuario, onSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (usuarioForm.nombre.trim().length === 0 || usuarioForm.apellido.trim().length === 0) {
+            mostrarAlerta('El nombre y/o apellido no pueden estar vacios', 'alerta-error');
+            return;
+        }
+
+        var regex = /^[a-zA-Z0-9]+$/; // Only allows alphanumeric characters
+        if (!regex.test(usuarioForm.nombre) || !regex.test(usuarioForm.apellido)) {
+            mostrarAlerta('Caracteres y simbolos no permitidos', 'alerta-error');
+            return;
+        }
+
         if (!isNaN(usuarioForm.nombre) || !isNaN(usuarioForm.apellido)) {
             mostrarAlerta('El nombre o apellido no puede ser numerico', 'alerta-error');
             return;
@@ -161,6 +172,9 @@ const Formulario = ({ tipo, usuario, onSubmit }) => {
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
                                 <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+
                             </select>
                         </div>
                     ) : (null)}

@@ -541,6 +541,12 @@ aside {
     flex: 1;
 }
 
+.campo-form1 select {
+    border: 1px solid #e1e1e1;
+    padding: 1rem;
+    flex: 1;
+}
+
 .enlace-cuenta {
     margin-top: 2rem;
     display: block;

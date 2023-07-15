@@ -106,13 +106,19 @@ const PedidoProvider = ({ children }) => {
     }
     //LLAMAMOS A ELIMINAR PEDIDO DEL BACKEND MEDIANTE SU URL.
     const eliminarPedido = async (pedido) => {
+        const result = {}
         try {
             await clienteAxios.delete(`/pedidos/id/${pedido.idpedido}`)
             await obtenerPedidos()
-            return true
+            result.ok = true
         } catch (error) {
-            return false
+            result.ok = false
+            if(error.response.status === 409){
+                result.message = "El pedido tiene observaciones asociadas"
+            }
         }
+        return result
+
     }
 
     //CAMBIAMOS NOMBRES DE VARIABLES RECIBIDAS DEL BACKEND A UN FORMATO MAS LINDO PARA EL FRONTEND

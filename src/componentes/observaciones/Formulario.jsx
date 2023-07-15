@@ -29,7 +29,8 @@ const Formulario = ({ observacion, pedido, onSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (form.cantidadPiezas === 0) {
+      
+        if (form.cantidadPiezas <= 0) {
             mostrarAlerta('Cantidad de piezas no valido', 'alerta-error')
             return
         }
