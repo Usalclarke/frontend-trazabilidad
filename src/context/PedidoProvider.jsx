@@ -76,6 +76,7 @@ const PedidoProvider = ({ children }) => {
         }
 
         await obtenerPedidos()
+        await obtenerProductos()
 
         setCargando(false)
 
