@@ -16,8 +16,8 @@ const EficienciaProducto = () => {
         galpon: ''
     })
 
-    const [chartData, setChartData] = useState(false)
     const [chartDataGalpon, setChartDataGalpon] = useState(false)
+    const [eficienciaGalpon, setEficienciaGalpon] = useState(0)
 
     const onChange = (e) => {
         setForm({
@@ -32,25 +32,21 @@ const EficienciaProducto = () => {
 
         try {
             const { data } = await clienteAxios.get(`/estadistica/eficienciaProducto/${form.codProducto}/${form.galpon}`)
-            setChartData(
-                [{
-                    name: "Fabricadas",
-                    value: data.cantidadFabricados,
-                }, {
-                    name: "Observadas",
-                    value: data.cantidadObservados,
-                }]
-            );
+            const fabricadas = data.eficienciagalpon.cantidadFabricados
+            const observadas = data.eficienciagalpon.cantidadObservados
+
+            const eficiencia = fabricadas > 0 ? (((fabricadas - observadas) / fabricadas) * 100).toFixed(2) : 0;
+            
             setChartDataGalpon(
                 [{
                     name: "Fabricadas",
-                    value: data.eficienciagalpon.cantidadFabricados,
+                    value: fabricadas,
                 }, {
                     name: "Observadas",
-                    value: data.eficienciagalpon.cantidadObservados,
+                    value: observadas,
                 }]
             );
-
+            setEficienciaGalpon(eficiencia)
 
         } catch (error) {
             mostrarAlerta("Producto no encontrado", "alerta-error")
@@ -100,33 +96,9 @@ const EficienciaProducto = () => {
                     />
                 </div>
             </form>
-            {chartData ?
-                <>
-                    <h1 style={{paddingTop: "30px"}}>Eficiencia General</h1>
-                    <div style={{ width: '100%', height: 500}}>
-                        <ResponsiveContainer>
-                            <PieChart>
-                                <Pie
-                                    dataKey="value"
-                                    data={chartData}
-                                    innerRadius={0}
-                                    fill="#82ca9d"
-                                    label
-                                >
-                                    {chartData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Legend />
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </div>
-                </>
-                : null}
             {chartDataGalpon ?
                 <>
-                    <h1 style={{paddingTop: "30px"}}>Eficiencia por Galpon {form.galpon}</h1>
+                    <h1 style={{ paddingTop: "30px" }}>Eficiencia de Galpon {form.galpon}</h1>
                     <div style={{ width: '100%', height: 500 }}>
                         <ResponsiveContainer>
                             <PieChart>
@@ -145,7 +117,9 @@ const EficienciaProducto = () => {
                                 <Tooltip />
                             </PieChart>
                         </ResponsiveContainer>
-                    </div></>
+                    </div>
+                    <h1 style={{ paddingTop: "30px" }}> {eficienciaGalpon}%</h1>
+                    </>
                 : null}
         </div>
     )
