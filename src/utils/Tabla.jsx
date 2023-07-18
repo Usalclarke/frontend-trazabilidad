@@ -36,7 +36,7 @@ const Tabla = ({ handleEdit, handleDelete, columns, data }) => {
                     <TableHead>
                         <TableRow >
                             {(Object.keys(columns)).map((column, index) => (
-                                <TableCell key={column} sx={{ fontSize: '16px' }} align={index === 0 ? "" : "right"}>{column}</TableCell>
+                                <TableCell key={column} sx={{ fontSize: '16px' }} align={index === 0 ? "left" : "right"}>{column}</TableCell>
                             ))}
                             <TableCell sx={{ fontSize: '16px' }} align="right">Accion</TableCell>
                         </TableRow>

@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import useAlerta from "../../hooks/useAlerta";
 import Papaparse from "papaparse"
 import usePedido from "../../hooks/usePedido";
+import useAuth from "../../hooks/useAuth";
+
 
 const CargarPedidos = () => {
 
@@ -9,6 +11,7 @@ const CargarPedidos = () => {
     //A AQUELLAS VARIABLES QUE VAMOS A UTILIZAR.
     const { mostrarAlerta } = useAlerta()
     const { cargarPedidos } = usePedido()
+    const { usuario } = useAuth()
     const navigate = useNavigate()
 
     //HANDLEFILE ES IGUAL QUE ONSUBMIT. ONSUBMIT PRESTA ATENCION A LOS CLICKS Y HANDLEFILE A LOS ARCHIVOS.
@@ -23,7 +26,7 @@ const CargarPedidos = () => {
         const reader = new FileReader();
         //DECLARO ARRAY VACIO DE PEDIDOS
         let pedidos = []
-        reader.onload = async(e) => {
+        reader.onload = async (e) => {
             //CONTENT ES EL CONTENIDO DEL ARCHIVO
             const content = e.target.result;
             //PARSEAMOS EL CSV A JSON
@@ -49,19 +52,27 @@ const CargarPedidos = () => {
                 return x;
             }, {});
 
-           
+
             //PASAMOS ARCHIVO JSON CON LOS PEDIDOS
             const result = await cargarPedidos(pedidos)
 
-            mostrarAlerta(`${result } pedidos cargados correctamente`, 'alerta-ok')
-            
-            return 
+            mostrarAlerta(`${result} pedidos cargados correctamente`, 'alerta-ok')
+
+            return
         };
 
         reader.readAsText(file);
-        
+
         navigate('/dashboard/pedidos/ver')
 
+    }
+    if (usuario && (usuario.cargo !== "admin" || usuario.cargo !== "jefeproduccion")) {
+
+        return (
+            <div>
+                <h1>No tenes pemisos para acceder</h1>
+            </div>
+        );
     }
     // CODIGO HTML DEL CARGAR PEDIDOS
     return (

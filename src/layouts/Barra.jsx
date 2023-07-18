@@ -4,16 +4,16 @@ import useAuth from '../hooks/useAuth'
 
 const Barra = () => {
 
-    const { usuario } = useAuth()
+    const { usuario , cerrarSesion} = useAuth()
     const { alerta } = useAlerta()
 
     return (
         <header className="app-header">
             {
-                usuario ? <p className="nombre-usuario">Hola <span>{usuario.nombre + ' ' + usuario.apellido}</span></p> : null
+                usuario ? <p className="nombre-usuario">Hola <span>{usuario.nombre + ' ' + usuario.cargo}</span></p> : null
             }
             <nav className="nav-principal">
-                <button className="btn btn-blank cerrar-sesion">Cerrar Sesion</button>
+                <button className="btn btn-blank cerrar-sesion" onClick={()=>cerrarSesion()}>Cerrar Sesion</button>
             </nav>
             {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
         </header>

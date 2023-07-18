@@ -2,16 +2,21 @@ import { Navigate, Outlet } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import Barra from './Barra'
 import Sidebar from './Sidebar'
-// import GestionUsuarios from '../componentes/usuarios/GestionUsuarios'
+import { useEffect } from 'react'
 
 const Dashboard = () => {
 
-    const { usuario, cargando } = useAuth();
+    const { autenticado, cargando, obtenerUsuario } = useAuth();
+    
+    useEffect(() => {
+        obtenerUsuario();
+    }, []); 
+    
     if (cargando) return 'Cargando...'
-
+    
     return (
         <>{
-            usuario.nombre ?
+            autenticado && !cargando?
                 (
                     <div
                         className="contenedor-app"

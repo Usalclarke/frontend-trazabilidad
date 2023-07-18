@@ -7,7 +7,7 @@ const PedidoContext = createContext()
 
 // eslint-disable-next-line react/prop-types
 const PedidoProvider = ({ children }) => {
-    const { usuario } = useAuth()
+    const { autenticado } = useAuth()
     const { productos, obtenerProductos } = useProducto()
     const [pedidos, setPedidos] = useState([])
     const [cargando, setCargando] = useState(false)
@@ -15,11 +15,11 @@ const PedidoProvider = ({ children }) => {
     useEffect(() => {
         console.log('requesting pedidos data....')
         obtenerPedidos()
-    }, [usuario, productos])
+    }, [autenticado, productos])
 
     //LLAMAMOS A OBTENER PEDIDO DEL BACKEND MEDIANTE SU URL. 
     const obtenerPedidos = async () => {
-        setCargando(true)
+        // setCargando(true)
         try {
             const { data } = await clienteAxios.get('/pedidos/')
             setPedidos(data)
@@ -27,7 +27,7 @@ const PedidoProvider = ({ children }) => {
         } catch (error) {
             return false
         } finally {
-            setCargando(false)
+            // setCargando(false)
         }
     }
 
@@ -62,7 +62,8 @@ const PedidoProvider = ({ children }) => {
                         idpedido: pedidoNuevo.idpedido,
                         codProducto: linea.codProducto,
                         cantidad: linea.cantidad,
-                        unidades: linea.unidades
+                        unidades: linea.unidades,
+                        descripcion: linea.descripcion
                     }
                 })
 

@@ -8,7 +8,7 @@ const ObservacionContext = createContext()
 const ObservacionProvider = ({ children }) => {
 
     const [observaciones, setObservaciones] = useState([])
-    const { usuario } = useAuth()
+    const { autenticado } = useAuth()
 
     const agregarObservacion = async (data, pedido) => {
         try {
@@ -31,7 +31,7 @@ const ObservacionProvider = ({ children }) => {
     useEffect(() => {
         console.log('requesting observaciones data....')
         obtenerObservaciones()
-    }, [usuario])
+    }, [autenticado])
 
     const obtenerObservaciones = async () => {
         try {

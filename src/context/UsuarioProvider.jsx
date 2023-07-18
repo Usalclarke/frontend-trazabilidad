@@ -7,7 +7,7 @@ const UsuarioContext = createContext()
 // eslint-disable-next-line react/prop-types
 const UsuarioProvider = ({ children }) => {
 
-    const { usuario } = useAuth()
+    const { autenticado } = useAuth()
     const [usuarios, setUsuarios] = useState([]);
     const [form, setForm] = useState({});
 
@@ -15,7 +15,7 @@ const UsuarioProvider = ({ children }) => {
     useEffect(() => {
         console.log('requesting users data....')
         obtenerUsuarios()
-    }, [usuario])
+    }, [autenticado])
 
     const obtenerUsuarios = async () => {
         try {

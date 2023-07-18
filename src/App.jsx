@@ -26,6 +26,7 @@ import EditarObservacion from './componentes/observaciones/EditarObservacion'
 import GestionEstadistica from './componentes/estadistica/GestionEstadistica'
 import EficienciaProducto from './componentes/estadistica/EficienciaProducto'
 import EficienciaGalpones from './componentes/estadistica/EficienciaGalpones'
+// import PrivateRoute from './config/PrivateRoute'
 
 function App() {
 
@@ -34,49 +35,49 @@ function App() {
       <AuthProvider>
         <AlertaProvider>
           <UsuarioProvider>
-              <ProductoProvider>
-            <PedidoProvider>
+            <ProductoProvider>
+              <PedidoProvider>
                 <ObservacionProvider>
 
-                <Routes>
-                  <Route path="/" element={<Login />}>
-                  </Route>
-
-                  <Route path="/dashboard" element={<Dashboard />}>
-                    <Route path="/dashboard/usuarios" element={<GestionUsuarios />} >
-                      <Route path="/dashboard/usuarios/agregar" element={<AgregarUsuario />} />
-                      <Route path="/dashboard/usuarios/ver" element={<VerUsuarios />} />
-                      <Route path="/dashboard/usuarios/editar" element={<EditarUsuario />} />
+                  <Routes>
+                    <Route path="/" element={<Login />}>
                     </Route>
 
-                    <Route path="/dashboard/pedidos" element={<GestionPedidos />} >
-                      <Route path="/dashboard/pedidos/cargar" element={<CargarPedidos />} />
-                      <Route path="/dashboard/pedidos/ver" element={<VerPedidos />} />
-                      <Route path="/dashboard/pedidos/editar" element={<EditarPedido />} />
-                      <Route path="/dashboard/pedidos/cambiarestado" element={<EstadoPedidos />} />
-                    </Route>
+                    <Route path="/dashboard" element={<Dashboard />}>
+                      <Route path="/dashboard/usuarios" element={<GestionUsuarios />} >
+                        <Route path="/dashboard/usuarios/agregar" element={<AgregarUsuario />} />
+                        <Route path="/dashboard/usuarios/ver" element={<VerUsuarios />} />
+                        <Route path="/dashboard/usuarios/editar" element={<EditarUsuario />} />
+                      </Route>
 
-                    <Route path="/dashboard/observaciones" element={<GestionObservaciones />} >
-                      <Route path="/dashboard/observaciones/agregar" element={<AgregarObservacion />} />
-                      <Route path="/dashboard/observaciones/ver" element={<VerObservaciones />} />
-                      <Route path="/dashboard/observaciones/editar" element={<EditarObservacion />} />
-                    </Route>
+                      <Route path="/dashboard/pedidos" element={<GestionPedidos />} >
+                        <Route path="/dashboard/pedidos/cargar" element={<CargarPedidos />} />
+                        <Route path="/dashboard/pedidos/ver" element={<VerPedidos />} />
+                        <Route path="/dashboard/pedidos/editar" element={<EditarPedido />} />
+                        <Route path="/dashboard/pedidos/cambiarestado" element={<EstadoPedidos />} />
+                      </Route>
 
-                    <Route path="/dashboard/stock" element={<GestionStock />} >
-                      <Route path="/dashboard/stock/ver" element={<VerStock />} />
-                      <Route path="/dashboard/stock/editar" element={<EditarStock />} />
-                    </Route>
+                      <Route path="/dashboard/observaciones" element={<GestionObservaciones />} >
+                        <Route path="/dashboard/observaciones/agregar" element={<AgregarObservacion />} />
+                        <Route path="/dashboard/observaciones/ver" element={<VerObservaciones />} />
+                        <Route path="/dashboard/observaciones/editar" element={<EditarObservacion />} />
+                      </Route>
 
-                    <Route path="/dashboard/estadistica" element={<GestionEstadistica/>} >
-                      <Route path="/dashboard/estadistica/producto" element={<EficienciaProducto />} />
-                      <Route path="/dashboard/estadistica/galpones" element={<EficienciaGalpones />} />
-                    </Route>
+                      <Route path="/dashboard/stock" element={<GestionStock />} >
+                        <Route path="/dashboard/stock/ver" element={<VerStock />} />
+                        <Route path="/dashboard/stock/editar" element={<EditarStock />} />
+                      </Route>
 
-                  </Route>
-                </Routes>
+                      <Route path="/dashboard/estadistica" element={<GestionEstadistica />} >
+                        <Route path="/dashboard/estadistica/producto" element={<EficienciaProducto />} />
+                        <Route path="/dashboard/estadistica/galpones" element={<EficienciaGalpones />} />
+                      </Route>
+
+                    </Route>
+                  </Routes>
                 </ObservacionProvider>
-            </PedidoProvider>
-              </ProductoProvider>
+              </PedidoProvider>
+            </ProductoProvider>
           </UsuarioProvider>
         </AlertaProvider>
       </AuthProvider>

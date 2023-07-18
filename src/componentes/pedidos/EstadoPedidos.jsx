@@ -48,6 +48,13 @@ const EstadoPedidos = () => {
         result ? mostrarAlerta('Pedido editado correctamente', 'alerta-ok') : mostrarAlerta('Pedido no se ha editado correctamente', 'alerta-error')
     }
 
+    if (usuario && (usuario.cargo !== "admin" || usuario.cargo !== "operario")) {
+        return (
+            <div>
+                <h1>No tenes pemisos para acceder</h1>
+            </div>
+        );
+    }
     return (
         <>
             <h1>VER PEDIDOS</h1>

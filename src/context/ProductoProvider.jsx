@@ -8,14 +8,14 @@ const ProductoContext = createContext()
 // eslint-disable-next-line react/prop-types
 const ProductoProvider = ({ children }) => {
 
-    const { usuario } = useAuth()
+    const { autenticado } = useAuth()
 
     const [productos, setProductos] = useState([])
 
     useEffect(() => {
         console.log('requesting products data....')
         obtenerProductos()
-    }, [usuario])
+    }, [autenticado])
 
     const obtenerProductos = async () => {
         try {

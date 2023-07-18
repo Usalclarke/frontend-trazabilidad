@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth';
 import useAlerta from '../../hooks/useAlerta';
-// import clienteAxios from '../../config/axios'
 import Logo from '../../img/logo.jpg';
 
 
@@ -13,7 +12,7 @@ const Login = () => {
     const [dni, setDni] = useState('')
     const [password, setPassword] = useState('')
 
-    const { setUsuario } = useAuth();
+    const { iniciarSesion, autenticado} = useAuth();
     const { alerta, mostrarAlerta } = useAlerta();
     
     const navigate = useNavigate()
@@ -28,22 +27,27 @@ const Login = () => {
             return;
         }
         //ACTION 
-        try {
-            // const { data } = await clienteAxios.post('usuarios/validarLogin', usuario);
-            // localStorage.setItem('token', data.token)
+        const result = await iniciarSesion({dni, password})
 
-            setUsuario({ nombre: "jorge", apellido: "luis", cargo: 'operario', galpon: 1})
-            navigate('/dashboard')
-        } catch (error) {
-            console.error(error)
-        }
+        if(!result) mostrarAlerta("Usuario y/o contraseña incorrectos", 'alerta-error');
+
     }
-
+    useEffect(() => {
+        //console.log('ENTRA USE EFECT');
+        //SI EL LOGIN ES CORRECTO ENTONCES AUTENTICADO = TRUE Y ENVIA AL USER AL DASHBOARD
+        if(autenticado){
+            navigate('/dashboard')
+        }
+        //SI EL LOGIN ES FALLIDO SE GUARDA UN MENSAJE EN "MSG" Y LUEGO MUESTRA ESE MENSAJE
+        /*if(msg){
+            mostrarAlerta(msg.msg,msg.categoria);
+        }*/
+    }, [autenticado]); 
 
     return (
         // INICIO INTERFAZ LOGIN
         <>
-            {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
+            {alerta ? (<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null}
             <div className="form-usuario">
                 <div className="contenedor-form sombra-dark">
                     <img src={Logo} alt="" width="100%" />

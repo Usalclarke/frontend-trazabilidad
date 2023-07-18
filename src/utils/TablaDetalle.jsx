@@ -114,8 +114,8 @@ const TablaDetalle = ({ columns, data, handleEdit, handleDelete }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row,index) => (
-                            <Row key={index} row={row} columns={columns} handleEdit={handleEdit} handleDelete={handleOpen} />
+                        {data.map((row, index) => (
+                            <Row key={index} row={row} columns={columns} handleEdit={handleEdit} handleDelete={handleDelete ? handleOpen : null} />
                         ))}
                     </TableBody>
                 </Table>
@@ -187,7 +187,7 @@ const TablaEstado = ({ columns, data, handleState }) => {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                fullWidth={true} 
+                fullWidth={true}
                 maxWidth={'sm'}
             >
                 <DialogContent>
@@ -196,7 +196,7 @@ const TablaEstado = ({ columns, data, handleState }) => {
                             type="button"
                             className="btn btn-primario btn-block btn-custom mt-10"
                             name="pasarProduccion"
-                            onClick={()=> handleState(rowSelected,'pasarProduccion')}
+                            onClick={() => handleState(rowSelected, 'pasarProduccion')}
                         >
                             Pasar a Produccion
                         </button>
@@ -204,7 +204,7 @@ const TablaEstado = ({ columns, data, handleState }) => {
                             type="button"
                             className="btn btn-primario btn-block btn-custom"
                             name="pasarTerminado"
-                            onClick={()=> handleState(rowSelected,'pasarTerminado')}
+                            onClick={() => handleState(rowSelected, 'pasarTerminado')}
                         >
                             Pasar a Terminado
                         </button>

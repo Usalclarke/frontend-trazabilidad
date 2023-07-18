@@ -1,6 +1,7 @@
 // import { useNavigate } from "react-router-dom"
 import useAlerta from "../../hooks/useAlerta"
 import usePedido from "../../hooks/usePedido"
+import useAuth from "../../hooks/useAuth"
 import { TablaDetalle } from "../../utils/TablaDetalle"
 
 
@@ -10,7 +11,7 @@ const VerPedidos = () => {
     // const navigate = useNavigate()
     const { pedidos, columns, eliminarPedido } = usePedido()
     const { mostrarAlerta } = useAlerta()
-
+    const { usuario } = useAuth()
     /*
     const handleEdit = (row) => {
         console.log("editando pedido...", row)
@@ -22,6 +23,7 @@ const VerPedidos = () => {
 
     const handleDelete = async (row) => {
         //RECIBIMOS POR PARAMETRO EL USUARIO A ELIMINAR
+
         console.log('eliminado pedido...', row)
 
         const result = await eliminarPedido(row)
@@ -37,13 +39,20 @@ const VerPedidos = () => {
 
     }
 
+    if (usuario && usuario.cargo == "operario") {
+        return (
+            <div>
+                <h1>No tenes pemisos para acceder</h1>
+            </div>
+        );
+    }
     return (
         <>
             <h1>VER PEDIDOS</h1>
             <TablaDetalle
                 columns={columns}
                 data={pedidos}
-                handleDelete={handleDelete}
+                handleDelete={usuario && usuario.cargo !== 'vendedor' ? handleDelete : null}
             />
         </>
     )
